@@ -5,6 +5,9 @@ import 'package:task_manager/firebase_functions.dart';
 import 'package:task_manager/models/task_model.dart';
 import 'package:task_manager/tabs/tasks/tasks_provider.dart';
 import 'package:task_manager/widgets/custom_textformfield.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../app_theme.dart';
 
 class AddBottomSheetTask extends StatefulWidget {
    AddBottomSheetTask({this.taskId, this.title, this.desc, this.edit=false,super.key});
@@ -115,11 +118,29 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
             description: descriptionController.text))
         .timeout(Duration(milliseconds: 100), onTimeout: () {
       // ignore: use_build_context_synchronously
-      Provider.of<TasksProvider>(context, listen: false).getTasks();
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
+      // ignore: use_build_context_synchronously
+      Provider.of<TasksProvider>(context,listen: false).getTasks();
+      Fluttertoast.showToast(
+          msg: "Task added successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          // gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }).catchError((e) {
       // print(e);
+      Fluttertoast.showToast(
+          msg: "Something went wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          // gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     });
     // print("add");
   }
@@ -133,12 +154,30 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
                 description: descriptionController.text))
         .timeout(Duration(milliseconds: 100), onTimeout: () {
       // ignore: use_build_context_synchronously
-      Provider.of<TasksProvider>(context, listen: false).getTasks();
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
+      // ignore: use_build_context_synchronously
+      Provider.of<TasksProvider>(context, listen: false).getTasks();
+      Fluttertoast.showToast(
+          msg: "Task edited successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          // gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }).catchError((e) {
-      // print(e);
+      Fluttertoast.showToast(
+          msg: "Something went wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          // gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     });
     // print("add");
+
   }
 }

@@ -1,5 +1,3 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -42,11 +40,13 @@ class _TaskItemState extends State<TaskItem> {
               // A motion is a widget used to control how the pane animates.
               motion: const ScrollMotion(),
               // A pane can dismiss the Slidable.
-              dismissible: DismissiblePane(onDismissed: () {}),
+              // dismissible: DismissiblePane(onDismissed: () {
+              // }),
               // All actions are defined in the children parameter.
               children: [
                 // A SlidableAction can have an icon and/or a label.
                 SlidableAction(
+
                   onPressed: (_) {
                     FirebaseFunctions.deleteTaskFromFirestore(
                             widget.taskModel.id)
@@ -58,6 +58,7 @@ class _TaskItemState extends State<TaskItem> {
                       // print(e);
                     });
                   },
+
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
@@ -135,4 +136,7 @@ class _TaskItemState extends State<TaskItem> {
           )),
     );
   }
+  // void deleteTask(){
+  //
+  // }
 }

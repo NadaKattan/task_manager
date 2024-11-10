@@ -23,7 +23,6 @@ class _TasksTabState extends State<TasksTab> {
       tasksProvider.getTasks();
       shouldGetTasks = false;
     }
-    // print("object");
     double screenHeight = MediaQuery.sizeOf(context).height;
     return Column(
       children: [

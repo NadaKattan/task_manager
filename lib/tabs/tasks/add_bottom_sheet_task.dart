@@ -7,21 +7,19 @@ import 'package:task_manager/tabs/tasks/tasks_provider.dart';
 import 'package:task_manager/widgets/custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../app_theme.dart';
-
 class AddBottomSheetTask extends StatefulWidget {
-   AddBottomSheetTask({this.taskId, this.title, this.desc, this.edit=false,super.key});
-   String? title;
-   String? desc;
-   String? taskId;
-   bool edit;
+  AddBottomSheetTask(
+      {this.taskId, this.title, this.desc, this.edit = false, super.key});
+  String? title;
+  String? desc;
+  String? taskId;
+  bool edit;
   @override
   State<AddBottomSheetTask> createState() => _AddBottomSheetTaskState();
 }
 
 class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
   TextEditingController titleController = TextEditingController();
-  // titleController.text="hello";
   TextEditingController descriptionController = TextEditingController();
   DateTime selectedTime = DateTime.now();
   var formKey = GlobalKey<FormState>();
@@ -43,7 +41,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
       child: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
         child: Container(
-          height:MediaQuery.sizeOf(context).height*0.5,
+          height: MediaQuery.sizeOf(context).height * 0.5,
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
@@ -58,7 +56,12 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
                     CustomTextFormField(
                       controller: titleController,
                       hintText: "Enter task title",
-                      type: "Title",
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter task title';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -66,7 +69,12 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
                     CustomTextFormField(
                       controller: descriptionController,
                       hintText: "Enter task description",
-                      type: "Description",
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter task description';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 25,
@@ -100,7 +108,9 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
                             // Navigator.of(context).pop();
                           }
                         },
-                        child: widget.edit?  const Text("edit Task") : const Text("Add Task")),
+                        child: widget.edit
+                            ? const Text("edit Task")
+                            : const Text("Add Task")),
                   ],
                 ),
               ),
@@ -120,7 +130,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       // ignore: use_build_context_synchronously
-      Provider.of<TasksProvider>(context,listen: false).getTasks();
+      Provider.of<TasksProvider>(context, listen: false).getTasks();
       Fluttertoast.showToast(
           msg: "Task added successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -128,8 +138,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           timeInSecForIosWeb: 3,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     }).catchError((e) {
       // print(e);
       Fluttertoast.showToast(
@@ -139,8 +148,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           timeInSecForIosWeb: 3,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     });
     // print("add");
   }
@@ -164,8 +172,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           timeInSecForIosWeb: 3,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     }).catchError((e) {
       Fluttertoast.showToast(
           msg: "Something went wrong",
@@ -174,10 +181,8 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           timeInSecForIosWeb: 3,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     });
     // print("add");
-
   }
 }

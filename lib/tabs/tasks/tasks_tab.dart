@@ -2,13 +2,11 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/app_theme.dart';
-import 'package:task_manager/firebase_functions.dart';
-import 'package:task_manager/models/task_model.dart';
 import 'package:task_manager/tabs/tasks/task_item.dart';
 import 'package:task_manager/tabs/tasks/tasks_provider.dart';
 
 class TasksTab extends StatefulWidget {
-  TasksTab({super.key});
+  const TasksTab({super.key});
 
   @override
   State<TasksTab> createState() => _TasksTabState();

@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/home_screen.dart';
 import 'package:task_manager/tabs/tasks/tasks_provider.dart';
-
 import 'app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      // options: DefaultFirebaseOptions.currentPlatform,
-      demoProjectId: "com.example.task_manager");
+    // name: "task-manger",
+    //   demoProjectId: "com.example.task_manager",
+      // options: DefaultFirebaseOptions.currentPlatform
+  );
   await FirebaseFirestore.instance.disableNetwork();
   runApp(ChangeNotifierProvider(
     create: (_) => TasksProvider(),
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'task_manager',
       routes: {
         HomeScreen.routeName: (_) => HomeScreen(),
       },

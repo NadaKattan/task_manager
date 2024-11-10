@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +10,8 @@ import 'package:task_manager/tabs/tasks/add_bottom_sheet_task.dart';
 import 'package:task_manager/tabs/tasks/tasks_provider.dart';
 
 class TaskItem extends StatefulWidget {
-  TaskItem({super.key, required this.taskModel});
-  TaskModel taskModel;
+  const TaskItem({super.key, required this.taskModel});
+  final TaskModel taskModel;
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -25,10 +25,12 @@ class _TaskItemState extends State<TaskItem> {
     return GestureDetector(
       onTap: () => showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (context) => AddBottomSheetTask(
                 desc: widget.taskModel.description,
                 title: widget.taskModel.title,
                 taskId: widget.taskModel.id,
+                edit: true,
               )),
       child: Container(
           margin: const EdgeInsets.only(bottom: 20, left: 30, right: 30),
@@ -49,10 +51,11 @@ class _TaskItemState extends State<TaskItem> {
                     FirebaseFunctions.deleteTaskFromFirestore(
                             widget.taskModel.id)
                         .timeout(Duration(milliseconds: 100), onTimeout: () {
+                      // ignore: use_build_context_synchronously
                       Provider.of<TasksProvider>(context, listen: false)
                           .getTasks();
                     }).catchError((e) {
-                      print(e);
+                      // print(e);
                     });
                   },
                   backgroundColor: Color(0xFFFE4A49),

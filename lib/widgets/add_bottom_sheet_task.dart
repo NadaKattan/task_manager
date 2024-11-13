@@ -3,9 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/firebase_functions.dart';
 import 'package:task_manager/models/task_model.dart';
-import 'package:task_manager/tabs/tasks/tasks_provider.dart';
+import 'package:task_manager/providers/tasks_provider.dart';
 import 'package:task_manager/widgets/custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../providers/user_provider.dart';
 
 class AddBottomSheetTask extends StatefulWidget {
   AddBottomSheetTask(
@@ -34,6 +36,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
 
   @override
   Widget build(BuildContext context) {
+    // String userId=Provider.of<UserProvider>(context).currentUser!.id;
     // GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Padding(
       padding:
@@ -125,12 +128,12 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
     FirebaseFunctions.addTaskToFirestore(TaskModel(
             date: selectedTime,
             title: titleController.text,
-            description: descriptionController.text))
+            description: descriptionController.text),Provider.of<UserProvider>(context,listen: false).currentUser!.id)
         .timeout(Duration(milliseconds: 100), onTimeout: () {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       // ignore: use_build_context_synchronously
-      Provider.of<TasksProvider>(context, listen: false).getTasks();
+      Provider.of<TasksProvider>(context, listen: false).getTasks(Provider.of<UserProvider>(context,listen: false).currentUser!.id);
       Fluttertoast.showToast(
           msg: "Task added successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -159,12 +162,12 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
             TaskModel(
                 date: selectedTime,
                 title: titleController.text,
-                description: descriptionController.text))
+                description: descriptionController.text),Provider.of<UserProvider>(context,listen: false).currentUser!.id)
         .timeout(Duration(milliseconds: 100), onTimeout: () {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       // ignore: use_build_context_synchronously
-      Provider.of<TasksProvider>(context, listen: false).getTasks();
+      Provider.of<TasksProvider>(context, listen: false).getTasks(Provider.of<UserProvider>(context,listen: false).currentUser!.id);
       Fluttertoast.showToast(
           msg: "Task edited successfully",
           toastLength: Toast.LENGTH_SHORT,

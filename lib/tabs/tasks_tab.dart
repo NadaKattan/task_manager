@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/app_theme.dart';
 import 'package:task_manager/tabs/tasks/task_item.dart';
-import 'package:task_manager/tabs/tasks/tasks_provider.dart';
+import 'package:task_manager/providers/tasks_provider.dart';
+
+import '../../providers/user_provider.dart';
 
 class TasksTab extends StatefulWidget {
   const TasksTab({super.key});
@@ -13,14 +15,14 @@ class TasksTab extends StatefulWidget {
 }
 
 class _TasksTabState extends State<TasksTab> {
-  // List<TaskItem> tasks = List.generate(
-  // List<TaskModel> tasks = [];
+
   bool shouldGetTasks = true;
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
+    String userId=Provider.of<UserProvider>(context).currentUser!.id;
     if (shouldGetTasks) {
-      tasksProvider.getTasks();
+      tasksProvider.getTasks(userId);
       shouldGetTasks = false;
     }
     double screenHeight = MediaQuery.sizeOf(context).height;
@@ -52,7 +54,7 @@ class _TasksTabState extends State<TasksTab> {
                 // activeColor: AppTheme.white,
                 showTimelineHeader: false,
                 onDateChange: (selectedDate) {
-                    tasksProvider.changeDate(selectedDate);
+                    tasksProvider.changeDate(selectedDate,userId);
                 },
                 dayProps: EasyDayProps(
                   dayStructure: DayStructure.dayStrDayNum,

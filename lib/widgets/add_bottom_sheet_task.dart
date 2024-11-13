@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -6,8 +7,8 @@ import 'package:task_manager/models/task_model.dart';
 import 'package:task_manager/providers/tasks_provider.dart';
 import 'package:task_manager/widgets/custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../providers/user_provider.dart';
+import '../app_theme.dart';
+import '../providers/user_provider.dart';
 
 class AddBottomSheetTask extends StatefulWidget {
   AddBottomSheetTask(
@@ -129,7 +130,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
             date: selectedTime,
             title: titleController.text,
             description: descriptionController.text),Provider.of<UserProvider>(context,listen: false).currentUser!.id)
-        .timeout(Duration(milliseconds: 100), onTimeout: () {
+        .then((_) {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       // ignore: use_build_context_synchronously
@@ -139,17 +140,20 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           toastLength: Toast.LENGTH_SHORT,
           // gravity: ToastGravity.SNACKBAR,
           timeInSecForIosWeb: 3,
-          backgroundColor: Colors.grey,
+          backgroundColor: AppTheme.green,
           textColor: Colors.white,
           fontSize: 16.0);
     }).catchError((e) {
-      // print(e);
+      String? message;
+      if(e is FirebaseAuthException){
+        message=e.message;
+      }
       Fluttertoast.showToast(
-          msg: "Something went wrong",
+          msg: message??"Something went wrong",
           toastLength: Toast.LENGTH_SHORT,
           // gravity: ToastGravity.SNACKBAR,
           timeInSecForIosWeb: 3,
-          backgroundColor: Colors.grey,
+          backgroundColor: AppTheme.red,
           textColor: Colors.white,
           fontSize: 16.0);
     });
@@ -163,7 +167,7 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
                 date: selectedTime,
                 title: titleController.text,
                 description: descriptionController.text),Provider.of<UserProvider>(context,listen: false).currentUser!.id)
-        .timeout(Duration(milliseconds: 100), onTimeout: () {
+        .then((_) {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
       // ignore: use_build_context_synchronously
@@ -173,19 +177,23 @@ class _AddBottomSheetTaskState extends State<AddBottomSheetTask> {
           toastLength: Toast.LENGTH_SHORT,
           // gravity: ToastGravity.SNACKBAR,
           timeInSecForIosWeb: 3,
-          backgroundColor: Colors.grey,
+          backgroundColor: AppTheme.green,
           textColor: Colors.white,
           fontSize: 16.0);
     }).catchError((e) {
+      String? message;
+      if(e is FirebaseAuthException){
+        message=e.message;
+      }
       Fluttertoast.showToast(
-          msg: "Something went wrong",
+          msg: message??"Something went wrong",
           toastLength: Toast.LENGTH_SHORT,
           // gravity: ToastGravity.SNACKBAR,
           timeInSecForIosWeb: 3,
-          backgroundColor: Colors.grey,
+          backgroundColor: AppTheme.red,
           textColor: Colors.white,
           fontSize: 16.0);
     });
-    // print("add");
+
   }
 }

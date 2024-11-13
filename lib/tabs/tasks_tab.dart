@@ -2,10 +2,10 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/app_theme.dart';
-import 'package:task_manager/tabs/tasks/task_item.dart';
+import 'package:task_manager/widgets/task_item.dart';
 import 'package:task_manager/providers/tasks_provider.dart';
 
-import '../../providers/user_provider.dart';
+import '../providers/user_provider.dart';
 
 class TasksTab extends StatefulWidget {
   const TasksTab({super.key});

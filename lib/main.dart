@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/providers/user_provider.dart';
 import 'package:task_manager/views/home_screen.dart';
-import 'package:task_manager/tabs/tasks/tasks_provider.dart';
+import 'package:task_manager/providers/tasks_provider.dart';
 import 'package:task_manager/views/login_screen.dart';
 import 'package:task_manager/views/register_screen.dart';
 import 'app_theme.dart';
@@ -12,12 +13,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       // name: "task-manger",
-        // demoProjectId: "com.example.task_manager",
+      // demoProjectId: "com.example.task_manager",
       // options: DefaultFirebaseOptions.currentPlatform
       );
-  await FirebaseFirestore.instance.disableNetwork();
-  runApp(ChangeNotifierProvider(
-    create: (_) => TasksProvider(),
+  // await FirebaseFirestore.instance.disableNetwork();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => TasksProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => UserProvider(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }

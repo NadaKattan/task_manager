@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/tabs/settings_tab.dart';
 // import 'package:task_manager/models/task_model.dart';
-import 'package:task_manager/tabs/tasks/add_bottom_sheet_task.dart';
-import 'package:task_manager/tabs/tasks/tasks_tab.dart';
+import 'package:task_manager/widgets/add_bottom_sheet_task.dart';
+import 'package:task_manager/tabs/tasks_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,12 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFDFECDB),
-      body: TasksTab(),
+      body: currentIndex==0? TasksTab():SettingsTab(),
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.zero,
         shape: CircularNotchedRectangle(),

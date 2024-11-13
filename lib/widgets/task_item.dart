@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:task_manager/app_theme.dart';
 import 'package:task_manager/firebase_functions.dart';
 import 'package:task_manager/models/task_model.dart';
-import 'package:task_manager/tabs/tasks/add_bottom_sheet_task.dart';
+import 'package:task_manager/widgets/add_bottom_sheet_task.dart';
 import 'package:task_manager/providers/tasks_provider.dart';
 
-import '../../providers/user_provider.dart';
+import '../providers/user_provider.dart';
 
 class TaskItem extends StatefulWidget {
   const TaskItem({super.key, required this.taskModel});
@@ -53,7 +53,7 @@ class _TaskItemState extends State<TaskItem> {
                   onPressed: (_) {
                     FirebaseFunctions.deleteTaskFromFirestore(
                             widget.taskModel.id,userId)
-                        .timeout(Duration(milliseconds: 100), onTimeout: () {
+                        .then((_) {
                       // ignore: use_build_context_synchronously
                       Provider.of<TasksProvider>(context, listen: false)
                           .getTasks(userId);

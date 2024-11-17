@@ -20,3 +20,14 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Edit and done features
 [https://github.com/NadaKattan/flutter-tasks/issues/1#issue-2664400561](https://github.com/user-attachments/assets/9c585e70-fda5-4e79-8f45-d3295ed26e80)
+
+## Packages
+- easy_date_timeline
+- intl
+- firebase_core
+- cloud_firestore
+- firebase_auth
+- provider
+- flutter_slidable
+- fluttertoast
+- flutter_native_splash
